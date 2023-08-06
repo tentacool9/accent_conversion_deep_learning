@@ -1,14 +1,5 @@
 # Real-Time Voice Cloning
-This repository is an implementation of [Transfer Learning from Speaker Verification to
-Multispeaker Text-To-Speech Synthesis](https://arxiv.org/pdf/1806.04558.pdf) (SV2TTS) with a vocoder that works in real-time. This was my [master's thesis](https://matheo.uliege.be/handle/2268.2/6801).
-
-SV2TTS is a deep learning framework in three stages. In the first stage, one creates a digital representation of a voice from a few seconds of audio. In the second and third stages, this representation is used as reference to generate speech given arbitrary text.
-
-**Video demonstration** (click the picture):
-
-[![Toolbox demo](https://i.imgur.com/8lFUlgz.png)](https://www.youtube.com/watch?v=-O_hYhToKoA)
-
-
+Please refer to original repository as this is a slight modification of the original project. [https://github.com/CorentinJ/Real-Time-Voice-Cloning]
 
 ### Papers implemented  
 | URL | Designation | Title | Implementation source |
@@ -18,11 +9,6 @@ SV2TTS is a deep learning framework in three stages. In the first stage, one cre
 |[1703.10135](https://arxiv.org/pdf/1703.10135.pdf) | Tacotron (synthesizer) | Tacotron: Towards End-to-End Speech Synthesis | [fatchord/WaveRNN](https://github.com/fatchord/WaveRNN)
 |[1710.10467](https://arxiv.org/pdf/1710.10467.pdf) | GE2E (encoder)| Generalized End-To-End Loss for Speaker Verification | This repo |
 
-## Heads up
-Like everything else in Deep Learning, this repo is quickly getting old. Many other open-source repositories or SaaS apps (often paying) will give you a better audio quality than this repository will. If you care about the fidelity of the voice you're cloning, and its expressivity, here are some personal recommendations of alternative voice cloning solutions:
-- Check out [CoquiTTS](https://github.com/coqui-ai/tts) for an open source repository that is more up-to-date, with a better voice cloning quality and more functionalities.
-- Check out [paperswithcode](https://paperswithcode.com/task/speech-synthesis/) for other repositories and recent research in the field of speech synthesis.
-- Check out [Resemble.ai](https://www.resemble.ai/) (disclaimer: I work there) for state of the art voice cloning with little hassle.
 
 ## Setup
 
