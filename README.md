@@ -48,7 +48,7 @@ Target spectrogram features are computed from 50ms windows with a 12.5ms step. T
 Vocoder
 The vocoder utilized to invert synthesized mel spectrograms emitted by the synthesis network into time-domain waveforms is the sample-by-sample autoregressive WaveNet. The architecture is composed of 30 dilated convolution layers and remains consistent with previous descriptions. Notably, the network does not directly condition on the output of the speaker encoder. The mel spectrogram predicted by the synthesizer network encapsulates all the relevant details needed for high-quality synthesis of a variety of voices. 
 
-
+![Model Architecture](./demopng.png)
 As stated above, the model consists of two duplicate neural networks. Each model is trained on relevant recordings from different accent oriented datasets. Essentially, we train one model on recordings consisting of only british recordings and we train the other model with recordings of only american accents. This gives each individual network the ability to generate sentences in specific accents, so one can convert anything he says into a different accent. If needed, one can add any speech to text algorithm for a full end-to-end audio recording from one accent to another pipeline.
 
 In our project we chose to leave out the speech to text part as our main contribution is enabling anyone to speak in any accent they want and say whatever they want. 
