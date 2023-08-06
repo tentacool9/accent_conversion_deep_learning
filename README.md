@@ -20,7 +20,7 @@ Please refer to original repository as this is a slight modification of the orig
 5. Install the remaining requirements with `pip install -r requirements.txt`
 
 ### 2. (Optional) Download Pretrained Models
-Download models from here: https://drive.google.com/drive/folders/1bnVK9TjbQGOmOYQ1EEoisodUaZPJHHG7?usp=sharing
+Download models from here: https://drive.google.com/drive/folders/1bnVK9TjbQGOmOYQ1EEoisodUaZPJHHG7?usp=sharing - Save them in the saved_models directory
 
 ### 3. (Optional) Test Configuration
 Before you download any dataset, you can begin by testing your configuration with:
