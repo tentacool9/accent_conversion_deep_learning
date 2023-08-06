@@ -22,35 +22,31 @@ Please refer to original repository as this is a slight modification of the orig
 ### 2. (Optional) Download Pretrained Models
 Download models from here: https://drive.google.com/drive/folders/1bnVK9TjbQGOmOYQ1EEoisodUaZPJHHG7?usp=sharing - Save them in the saved_models directory
 
-### 3. (Optional) Test Configuration
+### 3. (Optional) Download Datasets
+- Download the common voice data set https://www.kaggle.com/datasets/mozillaorg/common-voice
+- You can retrain the model by selecting a subset of a specific accent you want and placing the data in the correct directory (AccentConversion directory).
+- Enjoy!
+
+### 4. (Optional) Test Configuration
 Before you download any dataset, you can begin by testing your configuration with:
 
 `python demo_cli.py`
 
 If all tests pass, you're good to go.
 
-### 4. (Optional) Download Datasets
 
 
 ### 5. The model explained
-Our final model essentially consisted of 6 networks. Which are actually two neural network pipelines that were duplicated. Our work showed that converting a person’s utterance from one accent to another is a possible feat unlike previous attempts by various research groups. First, we will dive into the architecture of a single neural network pipeline and its components.
-Speaker Encoder
-In the proposed model, the synthesis network is conditioned on a reference speech signal from the desired target speaker, which is achieved using a speaker encoder. A critical factor for the model's generalization is the utilization of a representation that captures the unique characteristics of different speakers. Additionally, the model should have the ability to identify these characteristics using only a short adaptation signal, independent of its phonetic content and background noise. 
-To meet these requirements, a speaker-discriminative model is employed. This model is trained on a text-independent speaker verification task, which provides a highly scalable and accurate neural network for speaker verification. The network is designed to map a sequence of log-mel spectrogram frames, computed from a speech utterance of arbitrary length, to a fixed-dimensional embedding vector. 
-The network is trained to optimize a generalized end-to-end speaker verification loss, ensuring that the cosine similarity is high for embeddings of utterances from the same speaker, while maintaining a significant distance in the embedding space for utterances from different speakers. The training dataset consists of speech audio examples segmented into 1.6-second portions and associated speaker identity labels, with no use of transcripts. The input to the network consists of 40-channel log-mel spectrograms which are passed to a network comprising a stack of three LSTM layers of 768 cells each, followed by a projection to 256 dimensions. 
-
-To create the final embedding, the output of the top layer at the final frame is L2-normalized. During inference, an arbitrary length utterance is broken into 800ms windows with an overlap of 50%. The network is run independently on each window and the outputs are then averaged and normalized to create the final utterance embedding. Interestingly, even though the network is not directly optimized to learn a representation that captures speaker characteristics relevant to synthesis, training on a speaker discrimination task leads to an embedding that is suitable for conditioning the synthesis network on speaker identity.
-
-Synthesizer
-The next part of the architecture of our model extends the recurrent sequence-to-sequence Tacotron 2 with attention to support multiple speakers. This is accomplished by concatenating an embedding vector for the target speaker with the synthesizer encoder output at each time step. 
-The synthesizer is trained on pairs of text transcripts and target audio. At the input, we map the text to a sequence of phonemes, which results in faster convergence and improved pronunciation of rare words and proper nouns. The network is trained in a transfer learning configuration, using a pre-trained speaker encoder to extract a speaker embedding from the target audio. Notably, the speaker reference signal is the same as the target speech during training, and no explicit speaker identifier labels are used. 
-Target spectrogram features are computed from 50ms windows with a 12.5ms step. These are then passed through an 80-channel mel-scale filterbank followed by log dynamic range compression. We augment the method by adding an additional L1 loss to the L2 loss on the predicted spectrogram. We found this combined loss to be more robust on noisy training data. Unlike previous works, we do not introduce additional loss terms based on the speaker embedding.
-Vocoder
-The vocoder utilized to invert synthesized mel spectrograms emitted by the synthesis network into time-domain waveforms is the sample-by-sample autoregressive WaveNet. The architecture is composed of 30 dilated convolution layers and remains consistent with previous descriptions. Notably, the network does not directly condition on the output of the speaker encoder. The mel spectrogram predicted by the synthesizer network encapsulates all the relevant details needed for high-quality synthesis of a variety of voices. 
-
+Our final model consists of two fine fined tune voice conversion neural networks based on the real time voice conversion repository and the Transfer Learning from Speaker Verification to Multispeaker Text-To-Speech Synthesis paper by google. We essentially discovered that we can fine tune the voice cloning architecture on a dataset consisting only of audio recordings of native British English speakers. This results in an interesting accent convesion methodology as we essentialy clone the voice of the American english speaker while generating words that sound like they are spoken by a person speaking British english. The reason why this works is because we fine tuned to voice cloning model to only generate audio in a certain accent by providing training data in a specific accent. This works both ways as the original real time voice cloning repository model contains a model that can produce audio recordings in an American accent only. If one wants to generate recordings from British english to American english they can download the models presented in the original trepository. As stated, this method of accent conversion is a novel but simple method to convert one's accent to another.
 ![Model Architecture](./demopng.png)
 As stated above, the model consists of two duplicate neural networks. Each model is trained on relevant recordings from different accent oriented datasets. Essentially, we train one model on recordings consisting of only british recordings and we train the other model with recordings of only american accents. This gives each individual network the ability to generate sentences in specific accents, so one can convert anything he says into a different accent. If needed, one can add any speech to text algorithm for a full end-to-end audio recording from one accent to another pipeline.
 
-In our project we chose to leave out the speech to text part as our main contribution is enabling anyone to speak in any accent they want and say whatever they want. 
-Training the models consisted in fine tuning the models from the Real Time Voice Cloning implementation of google’s “Transfer Learning from Speaker Verification to Multispeaker Text-To-Speech Synthesis” paper. We fine tuned the model on data from UK recordings and US recordings separately. This caused each individual TTS pipeline to only know how to generate audio from one accent but not the other while capturing voice features.
-
+## Play some samples
+#### Before conversion to british
+[Click here to play the audio](./demo_output/gooddayamerican.wav)
+#### After conversion to british
+[Click here to play the audio](./demo_output/gooddaybritish.wav)
+#### Before conversion to british
+[Click here to play the audio](./demo_output/hellotoyousiramerican.wav)
+#### After conversion to british
+[Click here to play the audio](./demo_output/hellotoyousirbritish.wav)
