@@ -43,10 +43,10 @@ As stated above, the model consists of two duplicate neural networks. Each model
 
 ## Play some samples
 #### Before conversion to british
-[Click here to play the audio](./demo_output/gooddayamerican.wav)
+[Click here to play the audio](./demo_output/american1.wav)
 #### After conversion to british
-[Click here to play the audio](./demo_output/gooddaybritish.wav)
+[Click here to play the audio](./demo_output/british1.wav)
 #### Before conversion to british
-[Click here to play the audio](./demo_output/hellotoyousiramerican.wav)
+[Click here to play the audio](./demo_output/american2.wav)
 #### After conversion to british
-[Click here to play the audio](./demo_output/hellotoyousirbritish.wav)
+[Click here to play the audio](./demo_output/british2.wav)
