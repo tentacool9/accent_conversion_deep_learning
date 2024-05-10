@@ -20,7 +20,7 @@ Please refer to original repository as this is a slight modification of the orig
 5. Install the remaining requirements with `pip install -r requirements.txt`
 
 ### 2. (Optional) Download Pretrained Models
-Download models from here: https://drive.google.com/drive/folders/1bnVK9TjbQGOmOYQ1EEoisodUaZPJHHG7?usp=sharing - Save them in the saved_models directory
+Download models from here: https://drive.google.com/drive/folders/1hIvW0P2Vj07qsEJ7OTgobfUz6Rr9UgeT?usp=sharing - Save them in the saved_models directory
 
 ### 3. (Optional) Download Datasets
 - Download the common voice data set https://www.kaggle.com/datasets/mozillaorg/common-voice
